@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>form_test</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div>
+        <div>
+            <h2>自分の基礎情報（手入力）</h2>
+        </div>
+        <div>
+            <td><textarea name="1" id="1" cols="10" rows="2"></textarea>kg</td>
+            <td><textarea name="2" id="2" cols="10" rows="2"></textarea>mmHg</td>
+            <td><textarea name="3" id="3" cols="10" rows="2"></textarea>℃</td>
+        </div>
+        <div>
+            <td><textarea name="4" id="4" cols="50" rows="5">memo</textarea></td>
+            <input type="button" id="savebtn" value="저장"/>
+        </div>
+        <body>
+        <div id="container">
+            <h2>検索履歴（日付・自動表示）</h2>
+        </div>
+        <form action = "http://192.168.0.11:5000/form" method = "post">
+            <div calss="row">
+                <div class="col-sm-9"></div>
+                <div class="form-floating col-sm-3">
+                    <label for="입력">입력</label>
+                    <input type="text" class="form-control" id = "input_text" placeholder="input_text" name="input_text">
+                    <button type="submit" class="btn btn-primary" id = "smt">제출</button>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+</body>
+</html>
