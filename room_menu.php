@@ -2,7 +2,7 @@
     $room_name = $_GET["room_name"];
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,35 +13,42 @@
     <title>RoomMenu</title>
 </head>
 <body>
-<h1 style="text-align: center"><img width="388" src="./images/ptitle.png" alt="みんなの症状ことば"></h1><br>
-<h2 style="text-align: center">仲間ルームを作ろう！</h2><br>
-<h4 style="text-align: center;color:blue;" id = "room_name">
+<div style="line-height:30%">
+<h1 style="text-align: center;font-size:16px">
+    <a href="https://anq.medicalkotoba.com/user_regist.php" height="5" width="10" target="_blank">
+      <img src="./images/newlogo.png" alt="みんなの症状ことば" />
+    <a>
+  </h1><br>
+<h3 style="text-align: center;font-size:16px">仲間ルームを作ろう！</h3><br>
+</div>
+<h4 style="text-align: center;color:#0399e4;font-size:16px" id = "room_name">
     <?php
     echo "#",$room_name
     ?>
 </h4><br>
+
 <form action = "room_write.php" method="get"><!--method="get"-->
-            <div calss="row text-center">
+            <div calss="row">
                 <div style = "margin:0 auto" class="col-sm-9">
                 <div style = "margin:0 auto" class="form-floating col-sm-3">
                     <input type=hidden name=room_name value=<?=$room_name?>>
-                    <button type="submit" style="WIDTH: 100%" class="btn btn-danger" id = "save_room">仲間ルーム作成</button>
+                    <button type="submit" class="btn text-white" style="background-color: #66cc66;WIDTH: 100%" id = "save_room">新規トークルームの作成</button>
                 </div>
                 </div>
             </div>
 </form><br>
 <form action="user_regist.php">
-            <div calss="row text-center">
+            <div calss="row">
                 <div style = "margin:0 auto" class="col-sm-9">
                 <div style = "margin:0 auto" class="form-floating col-sm-3">
-                    <button class="btn text-white" style="background-color: purple;WIDTH: 100%;" id = "go_home">閉じる</button>
+                    <button class="btn text-white" style="background-color: #c0c0c0;WIDTH: 100%;" id = "go_home">閉じる</button>
                 </div>
                 </div>
             </div>
 </form>
 
 <br>
-<h4 style="text-align: center;color:red;">すでにあるトークルーム</h4><br>
+<h4 style="text-align: center;font-size:16px;color:#e52a94;">すでにあるトークルーム</h4><br>
 <?php
     $host = '13.208.78.196';
     $user = 'yong';
@@ -56,6 +63,7 @@
     if(isset($result) && $result->num_rows > 0){
         while($row = $result->fetch_assoc()){
             $RoomName = $row['RoomName'];
+            echo "&nbsp&nbsp&nbsp&nbsp";
             echo "<a href=show_room_contents.php?room_name=$RoomName>#$RoomName</a>"."<hr>";
         }
     }
