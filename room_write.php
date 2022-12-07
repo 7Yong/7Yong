@@ -3,7 +3,7 @@
     $user_name = $_COOKIE["user_name"];
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,35 +14,41 @@
     <title>RommWrite</title>
 </head>
 <body>
-<h1 style="text-align: center"><img width="388" src="./images/ptitle.png" alt="みんなの症状ことば"></h1><br>
-<h3 style="text-align: center">頭がズキズキする</h3><br>
-<h4 style="text-align: center;color:blue;" id = "room_name">
+<div style="line-height:30%">
+<h1 style="text-align: center;font-size:16px">
+    <a href="https://anq.medicalkotoba.com/user_regist.php" height="5" width="10" target="_blank">
+      <img src="./images/newlogo.png" alt="みんなの症状ことば" />
+    <a>
+  </h1><br>
+<h4 style="text-align: center;font-size:16px;color:#e52a94">頭がズキズキする</h4><br>
+<h4 style="text-align: center;font-size:16px;color:#0399e4" id = "room_name">
     <?php
     echo "#",$room_name
     ?>
 </h4><br>
+</div>
     <form action="content_save.php?room_name=<?=$room_name?>" method="post">
-    <div style = "margin:auto" class="col-sm-9">
-    <div style = "margin:auto" class="form-floating col-sm-3">
-    <h2>
+    <div style = "float:none;margin:0 auto" class="col-sm-9">
+    <div style = "float:none;margin:0 auto" class="form-floating col-sm-3">
+    <h2 style = "font-size:16px">
         <?php
         echo "@",$user_name
         ?>
     </h2>
-        <textarea style="resize: none;" class="form-control" rows="8" cols="100" name = "room_content" required></textarea>
-        <button type="submit" class="btn btn-primary" style="WIDTH: 100%" id = "submit_content">トークを保存</button>
+        <textarea style="resize: none;" class="form-control" rows="8" cols="100" name = "room_content" required oninvalid="this.setCustomValidity('内容を入力してください。')"></textarea>
+        <br>
+        <button type="submit" class="btn text-white" style="background-color: #00bbff;WIDTH: 100%" id = "submit_content">トークを保存</button>
     </div>
     </div>
     </form>
+    <br>
     <form action="room_menu.php" method="get">
-            <div style = "margin:auto" class="col-sm-9">
-                <div style = "margin:auto" class="form-floating col-sm-3">
+            <div style = "float:none;margin:0 auto" class="col-sm-9">
+                <div style = "float:none;margin:0 auto" class="form-floating col-sm-3">
                     <input type=hidden name=room_name value=<?=$room_name?>>
-                    <button type="submit" class="btn btn-danger" style="WIDTH: 100%" id = "back">戻る</button>
+                    <button type="submit" class="btn text-white" style="background-color: #c0c0c0;WIDTH: 100%" id = "back">戻る</button>
                 </div>
             </div>
     </form>
 </body>
-<script>
-</script>
 </html>
