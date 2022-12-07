@@ -11,17 +11,19 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="http://code.jquery.com/jquery-latest.js"></script> 
-    <title>RommWrite</title>
+    <title>頭がズキズキする</title>
 </head>
 <body>
 <div style="line-height:30%">
+<br>
+<br>
 <h1 style="text-align: center;font-size:16px">
-    <a href="https://anq.medicalkotoba.com/user_regist.php" height="5" width="10" target="_blank">
+    <a href="https://anq.medicalkotoba.com/" height="5" width="10">
       <img src="./images/newlogo.png" alt="みんなの症状ことば" />
     <a>
   </h1><br>
-<h4 style="text-align: center;font-size:16px;color:#e52a94">頭がズキズキする</h4><br>
-<h4 style="text-align: center;font-size:16px;color:#0399e4" id = "room_name">
+<h4 style="text-align: center;font-size:16px;color:#e52a94;font-weight: bold">頭がズキズキする</h4><br>
+<h4 style="text-align: center;font-size:16px;color:#0399e4;font-weight: bold" id = "room_name">
     <?php
     echo "#",$room_name
     ?>
@@ -30,12 +32,12 @@
     <form action="content_save.php?room_name=<?=$room_name?>" method="post">
     <div style = "float:none;margin:0 auto" class="col-sm-9">
     <div style = "float:none;margin:0 auto" class="form-floating col-sm-3">
-    <h2 style = "font-size:16px">
+    <h2 style = "font-size:16px;font-weight: bold">
         <?php
         echo "@",$user_name
         ?>
     </h2>
-        <textarea style="resize: none;" class="form-control" rows="8" cols="100" name = "room_content" required oninvalid="this.setCustomValidity('内容を入力してください。')"></textarea>
+        <textarea style="resize: none;" class="form-control" rows="8" cols="100" name = "room_content" required oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('内容を入力してください。')"></textarea>
         <br>
         <button type="submit" class="btn text-white" style="background-color: #00bbff;WIDTH: 100%" id = "submit_content">トークを保存</button>
     </div>
