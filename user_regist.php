@@ -1,3 +1,7 @@
+<?php
+    $kw = htmlspecialchars($_REQUEST['kw'], ENT_QUOTES, "UTF-8");
+    $user_name = $_GET["user_name"];
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -43,34 +47,37 @@
         cursor :pointer;
         }
 </style>
-    <title>頭がズキズキするのはどんなとき？</title>
+    <title><?php echo htmlentities($kw); ?>のはどんなとき？</title>
 </head>
 <body>
 <div style="line-height:30%">
 <br>
 <br>
     <h1 style="text-align: center;font-size:16px">
-    <a href="https://anq.medicalkotoba.com/" height="5" width="10">
-      <img src="./images/newlogo.png" alt="みんなの症状ことば" />
+    <a href="first_page.php?kw=<?=$kw?>&user_name=<?=$user_name?>" height="5" width="10">
+      <img style="width: 234px;"src="./images/2logoMinnnanokotoba.svg" alt="みんなの症状ことば" />
     <a>
   </h1>
+    <h3 style="text-align: center;font-size:11pt;color:#888888">（スマートフォン向け）</h3>
   <br>
     </div>
-    <h3 style="text-align: center;font-size:16px"><span style="color:#e52a94"><b>頭がズキズキする</span>のは<br>どんなとき</b>？</h3><br>
-
-    <form action = "room_menu.php" method="get" name = "send_info" onsubmit="return checkCookies()">
+    <h3 style="text-align: center;font-size:16px"><span style="color:#e52a94"><b><?php echo htmlentities($kw); ?></span>のは<br>どんなとき</b>？</h3><br>
+    <!-- <h3 style="text-align: center;font-size:16px"><b>トークルームをつくりましょう！</b></h3><br> -->
+    <form action="room_menu.php" method="get" name = "send_info" onsubmit="return check_user()">
             <div calss="row">
                 <div style = "margin:auto" class="col-sm-9">
                 <div style = "margin:auto" class="form-floating col-sm-3">
-                    <input type="text" style="WIDTH: 100%" class="form-control" id = "room_name" name="room_name" required required oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('容を入力してください。');">
+                    <input type="hidden" name="kw" id = "kw" value="<?php echo htmlentities($kw); ?>">
+                    <input type="text" style="WIDTH: 100%" class="form-control" id = "room_name" name="room_name" required required oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('内容を入力してください。');">
                     <br>
-                    <button type="submit" class="btn text-white" style="background-color: #00bbff;WIDTH: 100%" id = "submit_text">みんなとつながる</button>
+                    <input type="hidden" name="user_name" id = "user_name" value="">
+                    <button type="submit" class="btn text-white" style="background-color: #00bbff;WIDTH: 100%" id = "submit_text" onclick="room_regist()">みんなとトークする</button>
                 </div>
                 </div>
             </div>
     </form>
     <br>
-    <form action = "">
+    <form action = "user_regist.php" method="get">
             <div calss="row">
                 <div style = "margin:auto" class="col-sm-9">
                 <div style = "margin:auto" class="form-floating col-sm-3">
@@ -80,15 +87,16 @@
                         <input type='button' value='X' class="close" id='btnClose'/>
                         <label>ユーザーネームを入力してください。</label>
                         <br>
-                        <input class="form-control" type='input_user_name' id='input_user_name' required/>
-                        <br>
-                        <input type='submit' class="btn text-white" style="background-color: #0399e4;" value='登録' id='btnCheck' onclick="setCookie()"/>
+                        <input type=hidden name=kw value=<?=$kw?>>
+                        <input class="form-control" type='text' name = 'user_name' id='input_user_name' required oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('ユーザーネームを入力してください。')"/>
+                    <br>
+                        <input type='submit' class="btn text-white" style="background-color: #0399e4;" value='登録' id='btnCheck' onclick="user_regist()"/>
                     </div>
                 </div>
                 </div>
             </div>
     </form>
-    <h3 style="text-align: center;font-size:16px;font-weight: bold" id = "user_name"></h3>
+    <h3 style="text-align: center;font-size:16px;font-weight: bold" id = "show_user_name"></h3>
 </body>
 <script>
 let btnOpen  = document.getElementById('user_name_modal');
@@ -112,59 +120,40 @@ btnOpen.onclick = function(){
 btnClose.onclick = closeRtn;
 </script>
 <script>
-    function setCookie() {
-        let cookie_name = "user_name";
-		let cookie_user_name = $("#input_user_name").val();
-		//쿠키값(cvalue) 	escape() 저장 -> %uBC30%uB2E4%uC5F0 한글이 16진수로 출력된다
-		//$("#demo").html(escape(cvalue));
-		//unescape(??); 16진수를 한글로 바꾸자
-		
-		//만료시점(10일)
-		let now = new Date();
-		now.setDate(now.getDate()+10); //오늘날짜+10일 (18+10=28)
-		
-		//쿠키 저장
-		document.cookie = cookie_name + "=" + cookie_user_name+"; expires="+now.toUTCString();
+    function user_regist() {
+        const user_regist = $("#input_user_name").val();
+	if(user_regist.length>0){
+		localStorage.setItem("user_name", JSON.stringify(user_regist))
 	}
-    
-    function showCookies() {
-		let cname = "user_name";
-		// "id=admin; color=red; age=30"
-		let cookies = document.cookie;
-		//let cookieArray = cookies.split(";");
-		let cookieArray = cookies.split(/;\s/);
-
-        // let request_text = "名前を入力してください。";
-        // let request_text_color = request_text.fontcolor("green");
-
-		for (let i = 0; i < cookieArray.length; i++) {
-			let nv = cookieArray[i].split("=");
-			if (nv[0]==cname) { //똑같으면 쿠키 찾아진것
-                //모달창 닫기
-                let UserNameCookie = unescape(nv[1]);
-                let UserNameColor = unescape(nv[1]).fontcolor("#0399e4")
+    }
+    //   JSON.parse(localStorage.getItem("super"))
+    function show_user_name() {
+        const user_regist_name = JSON.parse(localStorage.getItem("user_name")).fontcolor("#0399e4");
+        document.getElementById('user_name').value = JSON.parse(localStorage.getItem("user_name"));
+        if (user_regist_name) { //똑같으면 쿠키 찾아진것
                 $("#user_name_modal").css("visibility", "hidden");
-				$("#user_name").html("こんにちは " + UserNameColor + "様");
+				$("#show_user_name").html("こんにちは " + user_regist_name + "様");
                 //unescape: 저장할때 escape로 저장했으니 출력할때 유니코드값을 다시 바꿔주는 것
 				return;
 			}
-		}		
-		
-		$("#user_name").html(request_text_color);			
-	}
-    function checkCookies(){
-        let check_cookies = document.cookie;
-        let request_text = "ユーザー登録をしてください。";
-        let request_text_color = request_text.fontcolor("green");
-        if(check_cookies === ''){
+    }
+    function room_regist() {
+        const room_regist = $("#room_name").val();
+        localStorage.setItem("room_name", JSON.stringify(room_regist))
+        return true;
+    }
+    function check_user(){
+        const check_user = JSON.parse(localStorage.getItem("user_name"));
+        const request_text = "ユーザー登録をしてください。";
+        const request_text_color = request_text.fontcolor("green");
+        if(JSON.parse(localStorage.getItem("user_name"))){
+            return true;
+        }
+        else{
             alert("ユーザー登録をしてください。");
             return false;
         }
-        else{
-            return true;
-        }
-
     }
-    showCookies();
+    show_user_name()
 </script>
 </html>
