@@ -1,6 +1,7 @@
 <?php
+    $kw = htmlspecialchars($_REQUEST['kw'], ENT_QUOTES, "UTF-8");
     $room_name = $_GET["room_name"];
-    $user_name = $_COOKIE["user_name"];
+    $user_name = $_GET["user_name"];
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -11,31 +12,39 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="http://code.jquery.com/jquery-latest.js"></script> 
-    <title>RommWrite</title>
+    <title>頭がズキズキする</title>
 </head>
 <body>
 <div style="line-height:30%">
+<br>
+<br>
 <h1 style="text-align: center;font-size:16px">
-    <a href="https://anq.medicalkotoba.com/user_regist.php" height="5" width="10" target="_blank">
-      <img src="./images/newlogo.png" alt="みんなの症状ことば" />
+    <a href="first_page.php?kw=<?=$kw?>&user_name=<?=$user_name?>" height="5" width="10">
+      <img style="width: 234px;"src="./images/2logoMinnnanokotoba.svg" alt="みんなの症状ことば" />
     <a>
-  </h1><br>
-<h4 style="text-align: center;font-size:16px;color:#e52a94">頭がズキズキする</h4><br>
-<h4 style="text-align: center;font-size:16px;color:#0399e4" id = "room_name">
+  </h1>
+    <h3 style="text-align: center;font-size:11pt;color:#888888">（スマートフォン向け）</h3>
+<br>
+<h4 style="text-align: center;font-size:16px;color:#e52a94;font-weight: bold">
+<?php
+ echo $kw
+ ?>
+ </h4><br>
+<h4 style="text-align: center;font-size:16px;color:#0399e4;font-weight: bold" id = "room_name">
     <?php
     echo "#",$room_name
     ?>
 </h4><br>
 </div>
-    <form action="content_save.php?room_name=<?=$room_name?>" method="post">
+    <form action="content_save.php?kw=<?=$kw?>&room_name=<?=$room_name?>&user_name=<?=$user_name?>" method="post">
     <div style = "float:none;margin:0 auto" class="col-sm-9">
     <div style = "float:none;margin:0 auto" class="form-floating col-sm-3">
-    <h2 style = "font-size:16px">
+    <h2 style = "font-size:16px;font-weight: bold">
         <?php
         echo "@",$user_name
         ?>
     </h2>
-        <textarea style="resize: none;" class="form-control" rows="8" cols="100" name = "room_content" required oninvalid="this.setCustomValidity('内容を入力してください。')"></textarea>
+        <textarea style="resize: none;" class="form-control" rows="8" cols="100" name = "room_content" required oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('内容を入力してください。')"></textarea>
         <br>
         <button type="submit" class="btn text-white" style="background-color: #00bbff;WIDTH: 100%" id = "submit_content">トークを保存</button>
     </div>
@@ -45,7 +54,9 @@
     <form action="room_menu.php" method="get">
             <div style = "float:none;margin:0 auto" class="col-sm-9">
                 <div style = "float:none;margin:0 auto" class="form-floating col-sm-3">
+                    <input type=hidden name=kw value=<?=$kw?>>
                     <input type=hidden name=room_name value=<?=$room_name?>>
+                    <input type=hidden name=user_name value=<?=$user_name?>>
                     <button type="submit" class="btn text-white" style="background-color: #c0c0c0;WIDTH: 100%" id = "back">戻る</button>
                 </div>
             </div>
